@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv='cache-control' content='no-cache'>
+		<meta http-equiv='expires' content='0'>
+		<meta http-equiv='pragma' content='no-cache'>
+		<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase-firestore.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase-auth.js"></script>
+		<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script src="class_tempeteDeCerveau.js"></script>
+		<script src="class_authentification.js"></script>
+		<script src="class_projectSelector.js"></script>
+		<script src="class_pageHeader.js"></script>
+		<script src="class_ganttChart.js"></script>
+		<script src="class_mindMapDatabase.js"></script>
+		<script src="class_settingsPanel.js"></script>
+		<script src="class_mindMap.js"></script>
+		<script src="class_wire.js"></script>
+		<script src="class_node.js"></script>
+		<link rel="stylesheet" href="styles.css">
+		<link rel="stylesheet" href="styles_panel.css">
+		<link rel="stylesheet" href="styles_gantt.css">
+		<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+	</head>
+	<body>
+	
+
+	<script type="text/javascript">
+
+	/**
+	 * Fonction d'initialisation de la base de données.
+	 */
+	 function firebaseInit(){
+		var config = {
+			apiKey: "AIzaSyDhs93X_yIZFZxe7bP7-yxu4b_8QIvu_C8",
+			authDomain: "efficientmind-16af7.firebaseapp.com",
+			databaseURL: "https://efficientmind-16af7.firebaseio.com",
+			projectId: "efficientmind-16af7",
+			storageBucket: "efficientmind-16af7.appspot.com",
+			messagingSenderId: "604780332129"
+		};
+		firebase.initializeApp(config);
+	}
+
+	this.firebaseInit();
+
+	var application = new tempeteDeCerveau();
+	application.render();
+	
+	</script>
+	</body>
+</html>

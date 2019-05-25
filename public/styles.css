@@ -1,0 +1,251 @@
+/* ------------------------- Styles des blocs principaux ----------------------------- */
+body {
+  background:white;
+  font-family: 'Courrier', serif;
+}
+
+#body_div{
+  display:block;
+  width: 80%;
+  height: 100%;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+}
+
+#body_div::-webkit-scrollbar { width: 0 !important }
+
+/* ------------- Style des pages de connexion et de choix du projet ------------------ */
+
+.titlediv{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  width: 50%;
+}
+
+.logindiv{
+  display: block;
+  text-align: center;
+  width: 100px;
+  margin: 0 auto;
+}
+
+.caseprojet{
+  display: inline-block;
+	vertical-align: bottom;
+	text-align: center;
+	border-radius: 5px;
+  border: 2px solid #222;
+  margin: 10px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+
+/* ------------------------------------- Styles du header ------------------------------------------- */
+.pageHeader{
+  background-color: #7facbe;
+  background-image: linear-gradient(to bottom right, rgba(255,255,255,0.5), rgba(255,255,255,0));
+  width: 100%;
+  height: 60px;
+}
+
+.viewBtnsContainer{
+  display: inline;
+  position: relative;
+  left: 20%;
+}
+
+.viewBtn{
+  background-color:  rgb(94, 104, 112); /* Blue background */
+  border: 1px;
+  margin-top: 5px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  width: 200px;
+  height: 50px;
+}
+
+.viewBtn:hover {
+  background-color:  rgb(129, 152, 172);
+}
+
+
+/* ------------------------------------- Styles des noeuds ------------------------------------------- */
+.box{
+  position: absolute;
+  text-align: center;
+  padding: 10px;
+  padding-top: 10px;
+  cursor: move;
+}
+
+.box input{
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.selected{
+  box-shadow: 5px 10px 8px #888888;
+}
+
+.btnselected{
+  box-shadow: 0px 0px 6px 6px #d4c48f;
+}
+
+.unselected{
+  box-shadow: none;
+  border: none;
+}
+
+.bgbox{
+  position: absolute;
+  background: white;
+  padding: 10px;
+  padding-top: 10px;
+  z-index: -1;
+}
+
+.box0{
+  font-size: 18px;
+}
+
+.box1{
+  font-size: 18px;
+}
+
+.box2{
+  font-size: 18px;
+}
+
+.box3{
+  font-size: 18px;
+}
+
+.wire{
+	position: absolute;
+	z-index: -2;
+}
+
+.nodeContent{
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.nodeText{
+  font-family: 'Calibri';
+}
+
+
+/* Types de noeuds */
+.topic{
+  border: none;
+  border-radius: 10px;
+}
+
+.subject{
+  border-radius: 50px 10px;
+}
+
+.idea{
+  border-radius: 30px ;
+}
+
+.task{
+  border: 2px solid rgba(0,0,0,0.8);
+}
+
+.comment{
+  border-radius: 10px ;
+  border: 2px solid rgba(0,0,0,0.8);
+}
+
+/* Décrit le petit triangle de la bulle du commentaire */
+.comment:after{
+  content: ''; 
+  position: absolute; 
+  bottom: 0; left: 30%; 
+  width: 0; height: 0; 
+  border: 20px solid transparent; 
+  border-top-color: rgba(0,0,0,0.8); 
+  border-bottom: 0; 
+  border-left: 0; 
+  margin-left: -10px; 
+  margin-bottom: -20px;
+}
+
+
+/* Priorités des noeuds */
+.highpriority{
+  background-color: #923e3e;
+  background-image: linear-gradient(to bottom right, rgba(255,255,255,0.5), rgba(255,255,255,0));
+}
+
+.mediumpriority{
+  background-color: #c9d15b;
+  background-image: linear-gradient(to bottom right, rgba(255,255,255,0.5), rgba(255,255,255,0));
+}
+
+.lowpriority{
+  background-color: #66b376;
+  background-image: linear-gradient(to bottom right, rgba(255,255,255,0.5), rgba(255,255,255,0));
+}
+
+.nopriority{
+  background-color: #549da0;
+  background-image: linear-gradient(to bottom right, rgba(255,255,255,0.5), rgba(255,255,255,0));
+}
+
+/* Tâche abandonnée */
+.dismissed{
+  opacity: 0.4;
+  filter: brightness(70%);
+}
+
+/* Décrit le "V" des tâches terminées */
+.checked:after{
+  content: "";
+  position: absolute;
+  left: 20px;
+  top: 12px;
+  width: 8px;
+  height: 15px;
+  border: solid green;
+  border-width: 0 5px 5px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+
+
+
+/* essais - Non utilisés */
+.settingBox{
+  position: absolute;
+  border-radius: 10px;
+  top: 100px;
+  right: 100px;
+  width: 150px;
+  height: 600px;
+}
+
+
+.idees{
+  font-family: 'Arvo', serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.borderImg1{
+  border: 2px solid transparent;
+  padding: 50px;
+  border-image-source: url(images/puzzle.png);
+  border-image-slice: 26;
+  border-image-width: 30px;
+  border-image-outset: 0;
+  border-image-repeat: round;
+}
+

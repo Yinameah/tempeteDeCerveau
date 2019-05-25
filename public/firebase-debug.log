@@ -1,0 +1,25 @@
+[debug] [2019-05-25T20:46:30.991Z] ----------------------------------------------------------------------
+[debug] [2019-05-25T20:46:30.996Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\bapti\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2019-05-25T20:46:30.996Z] CLI Version:   6.3.1
+[debug] [2019-05-25T20:46:30.996Z] Platform:      win32
+[debug] [2019-05-25T20:46:30.996Z] Node Version:  v10.15.1
+[debug] [2019-05-25T20:46:30.999Z] Time:          Sat May 25 2019 22:46:30 GMT+0200 (GMT+02:00)
+[debug] [2019-05-25T20:46:30.999Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-05-25T20:46:31.018Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-05-25T20:46:31.019Z] > authorizing via signed-in user
+[debug] [2019-05-25T20:46:31.019Z] [iam] checking project efficientmind-16af7 for permissions ["firebase.projects.get"]
+[debug] [2019-05-25T20:46:31.021Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/efficientmind-16af7:testIamPermissions  
+
+[debug] [2019-05-25T20:46:31.923Z] <<< HTTP RESPONSE 200
+[debug] [2019-05-25T20:46:31.927Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/efficientmind-16af7  
+ 
+[debug] [2019-05-25T20:46:32.756Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'C:\Users\bapti\Dropbox\Projets prog\tempeteDeCerveau'...
+[info] 
+[debug] [2019-05-25T20:46:32.759Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/604780332129/clients/_:getWebAppConfig  
+ 
+[debug] [2019-05-25T20:46:33.124Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] +  hosting: Local server: http://localhost:5000
