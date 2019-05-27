@@ -7,11 +7,6 @@ class tempeteDeCerveau {
      * le sélecteur de projet et la classe contenant la mindmap.
      */
     constructor(){
-        this.authentificateur = new authentification(this.onConnection.bind(this), this.onDisconnection.bind(this));
-        this.database = new mindMapDatabase();
-        this.projectSelector = new projectSelector(this.onProjectSelection.bind(this), this.database);
-        this.mindmap = new mindMap(this.database, this.authentificateur);
-
         this.titlediv = document.createElement("div");
         this.titlediv.className = "titlediv";
         this.titlediv.innerHTML = "<h2>Tempête de cerveau</h2><br>";
@@ -19,6 +14,21 @@ class tempeteDeCerveau {
         this.logindiv.id = "firebaseui-auth-container";
         this.loadingdiv = document.createElement("div");
         this.loadingdiv.id = "loader";
+
+        document.body.appendChild(this.titlediv);
+        document.body.appendChild(this.logindiv);
+        document.body.appendChild(this.loadingdiv); /* On a besoin de ce trois DIV dans la construction de l'authentificateur. */
+
+        this.authentificateur = new authentification(this.onConnection.bind(this), this.onDisconnection.bind(this));
+        this.database = new mindMapDatabase();
+        this.projectSelector = new projectSelector(this.onProjectSelection.bind(this), this.database);
+        this.mindmap = new mindMap(this.database, this.authentificateur);
+    }
+
+
+    start(){
+        this.render();
+        this.authentificateur.connect();
     }
 
     /**
@@ -26,6 +36,7 @@ class tempeteDeCerveau {
      * @param {Structure} user structure fournie par l'outil d'authentification de google.
      */
     onConnection(user){
+        console.log("On connection");
         this.remove();
         this.projectSelector.render(user);
     }
@@ -34,11 +45,11 @@ class tempeteDeCerveau {
      * Callback appelée lorsque l'utilisateur se déconnecte. Vide complètement l'application et affiche l'invite de connexion.
      */
     onDisconnection(){
-        console.log(this.mindmap);
+        console.log("On disconnection");
+        this.projectSelector.remove();
         if(this.mindmap != null){
             this.mindmap.remove();
         }
-        this.projectSelector.remove();
         this.render();
     }
 
@@ -58,26 +69,17 @@ class tempeteDeCerveau {
      * Affiche l'invite de connexion.
      */
     render(){
-        document.body.appendChild(this.titlediv);
-        //document.body.appendChild(this.logindiv);
-        //document.body.appendChild(this.loadingdiv);
-        console.log(this.authentificateur.connect);
-        this.authentificateur.connect();
-        //this.authentificateur.connect().bind(this.authentificateur);
+        //this.logindiv.style.display = "block";
+        this.titlediv.style.display = "block";
+        //this.loadingdiv.style.display = "block";
     }
     
     /**
      * Retire l'invite de connexion.
      */
     remove(){
-        if(this.titlediv.parentNode == document.body){
-            document.body.removeChild(this.titlediv);
-        }
-       /*  if(this.logindiv.parentNode == document.body){
-            document.body.removeChild(this.logindiv);
-        }
-        if(this.loadingdiv.parentNode == document.body){
-            document.body.removeChild(this.loadingdiv);
-        } */
+        //this.logindiv.style.display = "none";
+        this.titlediv.style.display = "none";
+        //this.loadingdiv.style.display = "none";
     }
 }

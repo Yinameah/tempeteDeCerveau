@@ -43,7 +43,6 @@ class mindMapDatabase {
 	 * @param {String} userEmail adresse mail de l'utilisateur
 	 */
 	getProjectsList(user){
-		console.log("identifiant utilisateur", user.uid);
 		return this.db.collection("Users").where("userID", "==", user.uid).get()
 			.then(
 				function(querySnapshot){
@@ -52,11 +51,6 @@ class mindMapDatabase {
 					}
 					else{
 						var result = querySnapshot.docs[0].data();
-						/* querySnapshot.forEach(function(doc) {
-							var donnees = doc.data();
-							projects.push(donnees['Nom']);
-						}.bind(this)); */
-						console.log(result['Projets']);
 						return result['Projets'];
 					}
 				}.bind(this))
