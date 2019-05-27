@@ -8,9 +8,9 @@ class authentification {
      * @param {function} onDisconnect callback appelée lors de la déconnexion
      * @param {Number}  mode mode de connexion: 0: google, autre: email/password.
      */
-    constructor(onConnect, onDisconnect, mode){
+    constructor(onConnect, onDisconnect){
         this.provider = new firebase.auth.GoogleAuthProvider();
-        this.mode = mode;
+        this.mode = 1;
 
         this.onConnect = onConnect;
         this.onDisconnect = onDisconnect;
@@ -53,7 +53,7 @@ class authentification {
                     // User successfully signed in.
                     // Return type determines whether we continue the redirect automatically
                     // or whether we leave that to developer to handle.
-                    return true;
+                    return false;
                   },
                   uiShown: function() {
                     // The widget is rendered.
@@ -63,16 +63,15 @@ class authentification {
                 },
                 // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
                 signInFlow: 'popup',
-                signInSuccessUrl: '<url-to-redirect-to-on-success>',
+                signInSuccessUrl: '',
                 signInOptions: [
                   // Leave the lines as is for the providers you want to offer your users.
-                  firebase.auth.GoogleAuthProvider.PROVIDER_ID,
                   firebase.auth.EmailAuthProvider.PROVIDER_ID
                 ],
                 // Terms of service url.
-                tosUrl: '<your-tos-url>',
+                //tosUrl: './',
                 // Privacy policy url.
-                privacyPolicyUrl: '<your-privacy-policy-url>'
+                //privacyPolicyUrl: './'
               };
 
               ui.start('#firebaseui-auth-container', uiConfig);

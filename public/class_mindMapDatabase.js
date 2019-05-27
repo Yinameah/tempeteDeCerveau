@@ -43,18 +43,26 @@ class mindMapDatabase {
 	 * @param {String} userEmail adresse mail de l'utilisateur
 	 */
 	getProjectsList(user){
-		return this.db.collection("Users").doc(userEmail).collection("Projets").get().then(
-			function(querySnapshot, foo){
-				console.log(foo);
-				var projects = [];
-				querySnapshot.forEach(function(doc) {
-					var donnees = doc.data();
-					projects.push(donnees['Nom']);
-				}.bind(this));
-				return projects;
-			}.bind(this)).catch(function(error) {
-				console.log("Erreur dans la récupération des projets: ", error);
-		});
+		console.log("identifiant utilisateur", user.uid);
+		return this.db.collection("Users").where("userID", "==", user.uid).get()
+			.then(
+				function(querySnapshot){
+					if(querySnapshot.empty){
+						return null; /* Pour indiquer qu'il n'y a aucun projet défini */
+					}
+					else{
+						var result = querySnapshot.docs[0].data();
+						/* querySnapshot.forEach(function(doc) {
+							var donnees = doc.data();
+							projects.push(donnees['Nom']);
+						}.bind(this)); */
+						console.log(result['Projets']);
+						return result['Projets'];
+					}
+				}.bind(this))
+			.catch(function(error) {
+					console.log("Erreur dans la récupération des projets: ", error);
+				});
 	}
 
 

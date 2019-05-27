@@ -7,7 +7,7 @@ class tempeteDeCerveau {
      * le sélecteur de projet et la classe contenant la mindmap.
      */
     constructor(){
-        this.authentificateur = new authentification(this.onConnection.bind(this), this.onDisconnection.bind(this), 1);
+        this.authentificateur = new authentification(this.onConnection.bind(this), this.onDisconnection.bind(this));
         this.database = new mindMapDatabase();
         this.projectSelector = new projectSelector(this.onProjectSelection.bind(this), this.database);
         this.mindmap = new mindMap(this.database, this.authentificateur);
@@ -15,13 +15,10 @@ class tempeteDeCerveau {
         this.titlediv = document.createElement("div");
         this.titlediv.className = "titlediv";
         this.titlediv.innerHTML = "<h2>Tempête de cerveau</h2><br>";
-        //<div id="firebaseui-auth-container"></div>
         this.logindiv = document.createElement("div");
-        //this.logindiv.innerHTML = "<h3>Connexion avec Google</h3>";
-        //this.logindiv.className = "logindiv";
         this.logindiv.id = "firebaseui-auth-container";
-        //this.logindiv.onclick = this.authentificateur.connect.bind(this.authentificateur);
-        //this.logindiv.style.cursor = "pointer";
+        this.loadingdiv = document.createElement("div");
+        this.loadingdiv.id = "loader";
     }
 
     /**
@@ -62,8 +59,11 @@ class tempeteDeCerveau {
      */
     render(){
         document.body.appendChild(this.titlediv);
-        document.body.appendChild(this.logindiv);
-        this.authentificateur.connect().bind(this.authentificateur);
+        //document.body.appendChild(this.logindiv);
+        //document.body.appendChild(this.loadingdiv);
+        console.log(this.authentificateur.connect);
+        this.authentificateur.connect();
+        //this.authentificateur.connect().bind(this.authentificateur);
     }
     
     /**
@@ -73,8 +73,11 @@ class tempeteDeCerveau {
         if(this.titlediv.parentNode == document.body){
             document.body.removeChild(this.titlediv);
         }
-        if(this.logindiv.parentNode == document.body){
+       /*  if(this.logindiv.parentNode == document.body){
             document.body.removeChild(this.logindiv);
         }
+        if(this.loadingdiv.parentNode == document.body){
+            document.body.removeChild(this.loadingdiv);
+        } */
     }
 }
