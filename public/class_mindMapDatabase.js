@@ -34,8 +34,8 @@ class mindMapDatabase {
 	 * utilisée pour les requêtes suivantes sur la base de données.
 	 * @param {String} project nom du projet
 	 */
-	linkProject(project){
-		this.projectRef = this.db.collection("Projects").doc(project);
+	linkProject(projectRef){
+		this.projectRef = projectRef;
 	}
 
 	/**
@@ -51,7 +51,8 @@ class mindMapDatabase {
 					}
 					else{
 						var result = querySnapshot.docs[0].data();
-						return result['Projets'];
+						/* return result['Projets']; */
+						return result['ProjectsRefs'];
 					}
 				}.bind(this))
 			.catch(function(error) {

@@ -22,7 +22,7 @@ class mindMap {
 		}; /* Cette fontion ne devrait pas être appelée avant qu'on ait invoqué mindmap.render() */
 
 		/* Création des graphismes fixes de la page (bandeau principal, espace pour le graphique) */
-		this.pageheader = new pageHeader(this.pageHeaderCallback.bind(this), this.disconnectCallback.bind(this));
+		this.mindmapHeader = new mindmapHeader(this.headerCallback.bind(this), this.disconnectCallback.bind(this));
 
 		this.mindmapdiv = document.createElement("div"); /* Va contenir la mindmap */
 		this.mindmapdiv.id = "mindmap_div";
@@ -72,7 +72,7 @@ class mindMap {
 	 * Fonction de callback transmise à l'instance du header, permettant de piloter l'affichge mindmap/gantt.
 	 * @param {booléen} mindmapview Indique si on doit afficher la mindmap (true) ou le diagramme de Gantt (false)
 	 */
-	pageHeaderCallback(mindmapview){
+	headerCallback(mindmapview){
 		if(mindmapview){
 			this.mindmapdiv.style.display = "block";
 			this.chartDiv.style.display = "none";
@@ -387,13 +387,13 @@ class mindMap {
 	 * Effectue le rendu du projet dans la mindmap.
 	 * @param {String} project nom du projet à lier.
 	 */
-	render(project){
-		this.pageheader.render();
+	render(projectRef){
+		this.mindmapHeader.render();
 
 		document.body.appendChild(this.chartDiv);
 		document.body.appendChild(this.mindmapdiv);
 
-		this.database.linkProject(project);
+		this.database.linkProject(projectRef);
 		this.unsubscribe = this.database.createCollectionListener("Nodes",this.listenerCallback.bind(this));
 
 		this.enableCallbacks();
@@ -411,7 +411,7 @@ class mindMap {
 		this.editedNode = -1;
 
 		this.settingspanel.remove();
-		this.pageheader.remove();
+		this.mindmapHeader.remove();
 
 		this.nodes.forEach(function(element){
 			element.delete();

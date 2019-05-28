@@ -25,15 +25,17 @@ class projectSelector {
         this.projectsDivs = [];
 
         return this.database.getProjectsList(user).then(function(projects){
-            projects.forEach(function(element){
-                this.projectList.push(element);
-                var div = document.createElement("div");
-                div.innerHTML = "<span>" + element + "</span><br>";
-                div.className = "caseprojet";
-                div.onclick = function(){
-                    this.onSelect(element);
-                }.bind(this);
-                this.projectsDivs.push(div);
+            projects.forEach(function(projectRef){
+                projectRef.get().then(function(documentSnapshot){
+                    var name = documentSnapshot.get("Name");
+                    var div = document.createElement("div");
+                    div.innerHTML = "<span>" + name + "</span><br>";
+                    div.className = "caseprojet";
+                    div.onclick = function(){
+                        this.onSelect(projectRef);
+                    }.bind(this);
+                    this.choiceDiv.appendChild(div);
+                }.bind(this));
             }.bind(this));
         }.bind(this));
     }
@@ -45,9 +47,6 @@ class projectSelector {
      */
     render(user){
         this.createContent(user).then(function(){
-            this.projectsDivs.forEach(function(element){
-                this.choiceDiv.appendChild(element);
-            }.bind(this));
             document.body.appendChild(this.choiceDiv);
         }.bind(this));
     }

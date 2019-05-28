@@ -62,14 +62,11 @@ class authentification {
                     this.onConnect(authUser);
                 }
                 else{
-                    console.log("plop");
                     this.onDisconnect();
                     this.ui.start('#firebaseui-auth-container', uiConfig);
                     this.user = null;
                 }
         }.bind(this));
-
-        //this.ui.start('#firebaseui-auth-container', uiConfig);
     }
 
     /** 

@@ -57,12 +57,12 @@ class tempeteDeCerveau {
      * Callback appelée lorsqu'un projet est sélectionné. Actionne le rendu du projet sélectionné.
      * @param {String} project nom du projet à afficher
      */
-    onProjectSelection(project){
+    onProjectSelection(projectRef){
         if(this.mindmap != null){
             this.mindmap.remove();
         }
         this.projectSelector.remove();
-        this.mindmap.render(project);
+        this.mindmap.render(projectRef);
     }
 
     /**
