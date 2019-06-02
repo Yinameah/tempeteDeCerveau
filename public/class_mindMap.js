@@ -74,10 +74,12 @@ class mindMap {
 	 */
 	headerCallback(mindmapview){
 		if(mindmapview){
+			this.ganttchart.remove();
 			this.mindmapdiv.style.display = "block";
 			this.chartDiv.style.display = "none";
 		}
 		else{
+			this.ganttchart.remove();
 			this.mindmapdiv.style.display = "none";
 			this.chartDiv.style.display = "block";
 			this.ganttchart.render(this.nodes);
@@ -110,7 +112,7 @@ class mindMap {
 					self.nodes.set(nodeData["id"], new node(self.mindmapdiv, nodeData,originpoint[0], originpoint[1],
 						self.deleteChildren.bind(self), self.updateChildrenWires.bind(self), self.selectNode.bind(self),
 						self.editNode.bind(self), self.database));
-					self.nodes.get(nodeData["id"]).render();
+					self.nodes.get(nodeData["id"]).render(false, false);
 				}
 			}
 			if (change.type === "modified"){
@@ -130,7 +132,7 @@ class mindMap {
 	 */
 	renderAllNodes(){
 		this.nodes.forEach(function(element){
-			element.render();
+			element.render(false, false);
 		});
 	}
 
@@ -167,7 +169,7 @@ class mindMap {
 			self.nodes.get(newId).editing = true;
 			self.editedNode = newId;
 			self.database.addNode(self.nodes.get(newId));
-			self.nodes.get(newId).render();
+			self.nodes.get(newId).render(false, false);
 		}).catch(function(error){
 			console.log(error);
 		});
@@ -216,7 +218,7 @@ class mindMap {
 			self.nodes.get(newId).editing = true;
 			self.editedNode = newId;
 			self.database.addNode(self.nodes.get(newId));
-			self.nodes.get(newId).render();
+			self.nodes.get(newId).render(false, false);
 		}).catch(function(error){
 			console.log(error);
 		});
@@ -270,8 +272,7 @@ class mindMap {
 		}
 		this.settingspanel.showPanel(this.nodes.get(nodeId));
 		this.selectedNode = nodeId;
-		this.nodes.get(nodeId).selected = true;
-		this.nodes.get(nodeId).render();
+		this.nodes.get(nodeId).render(true, false);
 	}
 
 	/**
@@ -281,8 +282,7 @@ class mindMap {
 		this.clearEdition();
 		this.settingspanel.hidePanel();
 		if(this.selectedNode >= 0){
-			this.nodes.get(this.selectedNode).selected = false;
-			this.nodes.get(this.selectedNode).render();
+			this.nodes.get(this.selectedNode).render(false, false);
 		}
 		this.selectedNode = -1;
 	}
@@ -296,8 +296,7 @@ class mindMap {
 			this.clearEdit();
 		}
 		this.editedNode = nodeId;
-		this.nodes.get(nodeId).editing = true;
-		this.nodes.get(nodeId).render();
+		this.nodes.get(nodeId).render(true, true);
 	}
 
 	/**
@@ -313,7 +312,7 @@ class mindMap {
 			currentNode.status = this.settingspanel.status;
 			currentNode.starttime = this.settingspanel.starttime;
 			currentNode.endtime = this.settingspanel.endtime;
-			currentNode.render();
+			currentNode.render(true, false);
 			this.database.setNodeSettings(this.selectedNode,currentNode.type,currentNode.priority,currentNode.users,
 										currentNode.status, currentNode.starttime, currentNode.endtime, currentNode.archive);
 		}
@@ -325,8 +324,7 @@ class mindMap {
 	clearEdition(){
 		if(this.editedNode >= 0){
 			if(this.nodes.has(this.editedNode)){ /* Nécessaire pour le cas où le noeud aurait été supprimé. */
-				this.nodes.get(this.editedNode).editing = false;
-				this.nodes.get(this.editedNode).render();
+				this.nodes.get(this.editedNode).render(false, false);
 			}
 		}
 		this.editedNode = -1;
@@ -373,6 +371,7 @@ class mindMap {
 		document.body.onkeydown = this.keypressed.bind(this);
 	}
 
+
 	/**
 	 * permet de désactiver les fonctions de callback lors du retrait de la mindmap.
 	 */
@@ -399,13 +398,13 @@ class mindMap {
 		this.enableCallbacks();
 	}
 
+
 	/**
 	 * Détruit tous les éléments relatifs au projet (la mindmap reste intacte) et liée à sa base de données.
 	 */
 	remove(){
 		this.disableCallbacks();
 		this.unsubscribe();
-
 		
 		this.selectedNode = -1;
 		this.editedNode = -1;
@@ -420,10 +419,10 @@ class mindMap {
 
 		this.ganttchart.remove();
 
-		if(this.chartDiv.parentNode == document.body){
+		if(this.chartDiv.parentElement == document.body){
 			document.body.removeChild(this.chartDiv);
 		}
-		if(this.mindmapdiv.parentNode == document.body){
+		if(this.mindmapdiv.parentElement == document.body){
 			document.body.removeChild(this.mindmapdiv);
 		}
 	}

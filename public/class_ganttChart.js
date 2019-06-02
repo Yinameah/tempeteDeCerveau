@@ -26,17 +26,17 @@ class ganttChart {
 		/* Le graphique peut être divisé en jours, semaines, mois, années. */
 		this.timespan = Math.ceil((this.finaltime.valueOf() - this.initialtime.valueOf())/(1000 * 60 * 60 * 24)) + 1; /* En nombre de jours */
 		this.division = "days";
-		/* Pour l'instant on pose arbitrairement un maximum de cases dans le graphique (30) */
-		if(this.timespan > 900){ /* Si on a plus que 30 mois, on affiche en années */
+		/* Pour l'instant on pose arbitrairement un maximum de cases dans le graphique (15) */
+		if(this.timespan > 450){ /* Si on a plus que 15 mois, on affiche en années */
 			this.division = "years";
 			this.timespan = this.finaltime.getFullYear() - this.initialtime.getFullYear();
 		}
-		else if(this.timespan > 210){/* Si on a plus que 30 semaines, on affiche en mois */
+		else if(this.timespan > 105){/* Si on a plus que 15 semaines, on affiche en mois */
 			this.division = "months";
 			this.timespan = ((this.finaltime.getFullYear() - this.initialtime.getFullYear()) * 12) + 
 							(this.finaltime.getMonth() - this.initialtime.getMonth());
 		}
-		else if(this.timespan > 30){ 
+		else if(this.timespan > 15){ 
 			this.division = "weeks";
 			/* Pour chercher le nombre de semaines, on arrondit le nombre de jours en cherchant le lundi précédent et le dimanche suivant.
 			On divise ensuite le nombre de jours trouvés par 7. Le nombre doit être rond, même si la vérification n'est pas effectuée. */
@@ -188,7 +188,8 @@ class ganttChart {
 	 * @param {Map} nodes noeuds de la mindmap
 	 */
 	render(nodes){
-		this.remove();			
+		this.chart = document.createElement("div");
+		this.chart.className = "gantt";		
 		
 		this.container.appendChild(this.chart);
 
@@ -220,13 +221,12 @@ class ganttChart {
 	 * Retire le diagramme de Gantt de la page.
 	 */
 	remove(){
-		if(this.chart !== undefined){
-			if(this.chart.parentNode == this.container){
-				this.chart.childNodes.forEach(function(element){
-					this.chart.removeChild(element);
-				}.bind(this));
-				this.container.removeChild(this.chart);
+		var elem = document.getElementsByClassName("gantt");
+		if(elem[0] !== undefined){
+			if(elem[0].parentElement == this.container){
+				this.container.removeChild(elem[0]);
 			}
 		}
+		this.chart = null;
 	}
 }

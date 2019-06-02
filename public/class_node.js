@@ -39,8 +39,6 @@ class node {
 		
 		this.todolist = null;
 		this.parentNode = nodedata["parentnode"];
-		this.selected = false;
-		this.editing = false;
 		this.database = database;
 		this.type = nodedata["type"];
 		this.priority = nodedata["priority"];
@@ -194,7 +192,8 @@ class node {
 			self.updateChildrenWires(self.nodeId);
 
 			/* On finit par lancer un rendu du tout */
-			self.render();
+			//self.render(true, false);
+			self.changeNodePosition();
 		}
 
 		/**
@@ -208,10 +207,21 @@ class node {
 		}
 	}
 
+	changeNodePosition(){
+		this.graphnode.setAttribute('Style', "left:" + String(this.x) + "px;top:" + String(this.y) + "px;width:" + String(this.width) +
+								"px;height:" + String(this.height) + "px");
+		this.bgbox.setAttribute('Style', "left:" + String(this.x) + "px;top:" + String(this.y) + "px;width:" + String(this.width) +
+								"px;height:" + String(this.height) + "px");
+		/* Rendu de la liaison, si elle existe */
+		if(this.wire != null){
+			this.wire.render();
+		}
+	}
+
 	/**
 	 * Rendu graphique du noeud.
 	 */	
-	render(){
+	render(selected, edited){
 		/* Ajout des éléments graphiques à la page */
 		this.parentDiv.appendChild(this.graphnode);
 		this.parentDiv.appendChild(this.bgbox);
@@ -228,7 +238,7 @@ class node {
 
 		var classe = "box box" + styleLevel + " " + this.TYPESCLASSESNAMES[this.type] + 
 						" " + this.PRIORITYCLASSESNAMES[this.priority] + " " + this.STATUSCLASSESNAMES[this.status];
-		if(this.selected){
+		if(selected){
 			classe = classe + " selected";
 			this.graphnode.style.zIndex = "5";
 		}
@@ -246,7 +256,7 @@ class node {
 		this.textbox.type = "text";
 		this.textbox.id = "texteditor";
 
-		if(this.editing == true){
+		if(edited){
 			this.editText.style.display = "block";
 			this.nodeContent.style.display = "none";
 			this.textbox.focus();
@@ -276,7 +286,7 @@ class node {
 		this.textbox.onmousedown = function(event){
 			event.stopPropagation();
 		};
-		
+
 		/* Rendu de la liaison, si elle existe */
 		if(this.wire != null){
 			this.wire.render();
